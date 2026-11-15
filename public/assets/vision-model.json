@@ -1,0 +1,157 @@
+{
+  "id": "ares-ai4mars-mobilenetv4-int8-v1",
+  "architecture": "DeepLabV3+ / MobileNetV4-Conv-Small",
+  "input": "RGB float32 NCHW [1,3,512,512], pixel/255, bilinear image resize",
+  "output": "float32 logits [1,4,512,512]",
+  "classes": [
+    "soil",
+    "bedrock",
+    "sand",
+    "big_rock"
+  ],
+  "upstreamCheckpoint": "https://github.com/KeenanSylo/ai4mars-lightweight-segmentation/blob/main/final_model/v2_R11_MNv4-S_512.pth",
+  "authors": "Keenan Syahlevi Arsianto; Yashwanth Krishna Devanaboina",
+  "year": 2026,
+  "codeLicense": "MIT; see vision-model-license.txt; AI4Mars dataset separately distributed under NASA JPL terms",
+  "checkpointSHA256": "ac24c42d230865f3703ffdd58304da4d182367f4528f53ad2a6540c4164cf3c5",
+  "modelSHA256": "fcd2bf0e2ed686adf297c286cdba6e181d9164b19a2a2b803bf551550e5406c1",
+  "conversion": "PyTorch 2.6.0 CPU, segmentation-models-pytorch 0.5.0, timm 1.0.22; ONNX opset17; ORT1.23.2 static QDQ QUInt8 activations, QInt8 per-channel weights. Calibration: single bundled NAVCAM crop and horizontal mirror.",
+  "verification": {
+    "floatExportMaxAbsoluteDifference": 2.8133392333984375e-05,
+    "floatExportLabelAgreement": 1.0,
+    "quantizedLabelAgreementOnSingleSample": 0.9555931091308594,
+    "test": "Single bundled NASA NAVCAM crop resized to 512\u00d7512. Numeric conversion test only; not an accuracy evaluation."
+  },
+  "validation": "No labeled evaluation of quantized browser model has been performed. Upstream full-precision paper metrics do not validate this quantized model.",
+  "upstreamReportedEvaluation": {
+    "confusion_matrix": [
+      [
+        59532793,
+        373253,
+        162655,
+        318
+      ],
+      [
+        417034,
+        25647441,
+        33218,
+        95246
+      ],
+      [
+        61301,
+        1662708,
+        28915161,
+        735
+      ],
+      [
+        0,
+        0,
+        0,
+        77698
+      ]
+    ],
+    "class_names": [
+      "soil",
+      "bedrock",
+      "sand",
+      "big_rock"
+    ],
+    "pixel_accuracy": 0.9760089029569875,
+    "mean_iou": 0.8190146791327692,
+    "per_class_iou": {
+      "soil": 0.9832435121772621,
+      "bedrock": 0.9085526180616319,
+      "sand": 0.9377146573049008,
+      "big_rock": 0.4465479289872814
+    },
+    "per_class_precision": {
+      "soil": 0.9920292283124557,
+      "bedrock": 0.9264555346196252,
+      "sand": 0.9932715203451722,
+      "big_rock": 0.4465479289872814
+    },
+    "per_class_recall": {
+      "soil": 0.9910731686828447,
+      "bedrock": 0.9791738529227285,
+      "sand": 0.9437092249470095,
+      "big_rock": 1.0
+    },
+    "per_class_support": {
+      "soil": 60069019,
+      "bedrock": 26192939,
+      "sand": 30639905,
+      "big_rock": 77698
+    },
+    "confidence": {
+      "threshold": 0.6,
+      "overall_low_confidence_fraction": 0.00464090474745413,
+      "overall_mean_confidence": 0.9889414010176553,
+      "per_class_low_confidence_fraction": {
+        "soil": 0.004978240114092757,
+        "bedrock": 0.004228506010722966,
+        "sand": 0.0043437797865234894,
+        "big_rock": 3.8611032459007955e-05
+      },
+      "per_class_mean_confidence": {
+        "soil": 0.9882110627723482,
+        "bedrock": 0.9897265768272749,
+        "sand": 0.9896776739723185,
+        "big_rock": 0.9985337516982822
+      },
+      "per_class_pixel_count": {
+        "soil": 60069019,
+        "bedrock": 26192939,
+        "sand": 30639905,
+        "big_rock": 77698
+      },
+      "histogram_bin_edges": [
+        0.0,
+        0.05,
+        0.1,
+        0.15000000000000002,
+        0.2,
+        0.25,
+        0.30000000000000004,
+        0.35000000000000003,
+        0.4,
+        0.45,
+        0.5,
+        0.55,
+        0.6000000000000001,
+        0.65,
+        0.7000000000000001,
+        0.75,
+        0.8,
+        0.8500000000000001,
+        0.9,
+        0.9500000000000001,
+        1.0
+      ],
+      "histogram_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        133,
+        2801,
+        6929,
+        30918,
+        240797,
+        261310,
+        266306,
+        294247,
+        359059,
+        454146,
+        588388,
+        950516,
+        2019816,
+        111504192
+      ]
+    },
+    "num_images": 287
+  },
+  "runtime": "onnxruntime-web 1.23.2, WASM, single thread, jsDelivr CDN",
+  "sample": "NASA/JPL-Caltech, PIA23897 left-panel crop, source publication2020-06-12; acquisition date and coordinates unspecified"
+}

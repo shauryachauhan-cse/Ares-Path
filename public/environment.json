@@ -1,0 +1,27 @@
+{
+  "atmosphere": {
+    "mission": "Mars 2020 / Perseverance",
+    "instrument": "MEDA",
+    "location": "Jezero Crater, rover landing-area observations",
+    "time": "2021-04-03 to 2021-04-04 (mission sols 43\u201344)",
+    "temperatureHighC": -22,
+    "temperatureLowC": -83,
+    "pressureObservation": {
+      "pascals": 718,
+      "time": "2021-02-19, initial MEDA observation"
+    },
+    "provenance": "Published NASA/JPL measurement summary, not raw sensor time series",
+    "url": "https://www.jpl.nasa.gov/news/nasas-first-weather-report-from-jezero-crater-on-mars/",
+    "limitations": "Historical measurements at the rover, not conditions along your route or a forecast. Pressure and temperature examples come from different observation periods."
+  },
+  "radiation": {
+    "mission": "Mars Science Laboratory / Curiosity",
+    "instrument": "RAD",
+    "location": "Gale Crater \u2014 not Jezero",
+    "time": "2012-08 to 2013-06",
+    "averageMillisievertsPerDay": 0.67,
+    "url": "https://www.nasa.gov/news-release/nasa-rover-results-include-first-age-measurement-on-mars-and-help-for-human-exploration/",
+    "provenance": "NASA-published historical average",
+    "limitations": "Context only. Different location, epoch, shielding and solar conditions; do not apply this rate to a Jezero excursion or infer suit dose. No current solar-particle warning is available."
+  }
+}

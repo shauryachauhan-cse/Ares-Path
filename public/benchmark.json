@@ -1,0 +1,103 @@
+{
+  "caseId": "jezero-fan-front-v1",
+  "mission": {
+    "id": "jezero-fan-front-v1",
+    "name": "Jezero western fan reconnaissance",
+    "start": [
+      77.435,
+      18.421
+    ],
+    "end": [
+      77.41359752,
+      18.45369687
+    ],
+    "maxSlopeDegrees": 15,
+    "avoidMappedHazards": true
+  },
+  "time": {
+    "speedKmh": 2,
+    "mobilityFactor": 1.25,
+    "scienceMinutes": 25,
+    "reserveMinutes": 30,
+    "restMinutes": 10,
+    "budgetMinutes": 300,
+    "equipmentKg": 5
+  },
+  "rover": {
+    "massKg": 200,
+    "capacityWh": 2000,
+    "chargePercent": 80,
+    "reservePercent": 20,
+    "rollingResistance": 0.08,
+    "efficiency": 0.65,
+    "auxiliaryW": 80,
+    "scienceW": 30,
+    "speedKmh": 2,
+    "scienceMinutes": 25,
+    "solarW": 0,
+    "solarHours": 0
+  },
+  "recommendedId": "balanced",
+  "sourceHashes": {
+    "terrain.json": "a76ec1920199e9e04ab79586f48137fb303f2bd8e59684b2f105d37bb1ce8ed6",
+    "hazard-grid.json": "53926440663922dcc5cf245b6bdab9fe2c52b2fcac1ddfaa4572541a7ee21a76"
+  },
+  "routes": [
+    {
+      "id": "distance",
+      "roundTripKm": 4.892735127825048,
+      "maxModeledSlopeDegrees": 5.398591041564941,
+      "ascentMeters": 46.399999999999636,
+      "allocatedMinutes": 248.486137967054,
+      "energyWh": 385.2240022017602,
+      "timeFit": true,
+      "batteryFit": true,
+      "endpointSnapMeters": {
+        "start": 21.795123252684554,
+        "end": 28.514601087146715
+      }
+    },
+    {
+      "id": "balanced",
+      "roundTripKm": 5.54259234337417,
+      "maxModeledSlopeDegrees": 2.9083186474282168,
+      "ascentMeters": 36.20000000000027,
+      "allocatedMinutes": 272.85041951006417,
+      "energyWh": 421.23483967628783,
+      "timeFit": true,
+      "batteryFit": true,
+      "endpointSnapMeters": {
+        "start": 21.795123252684554,
+        "end": 28.514601087146715
+      }
+    },
+    {
+      "id": "terrain",
+      "roundTripKm": 5.682524491467863,
+      "maxModeledSlopeDegrees": 2.9083186474282168,
+      "ascentMeters": 36.69999999999982,
+      "allocatedMinutes": 278.09764945486876,
+      "energyWh": 430.69895137389915,
+      "timeFit": true,
+      "batteryFit": true,
+      "endpointSnapMeters": {
+        "start": 21.795123252684554,
+        "end": 28.514601087146715
+      }
+    }
+  ],
+  "bedformPolicyChangedPaths": false,
+  "directSketch": {
+    "roundTripKm": 4.562740186180727,
+    "maxSampledSegmentSlopeDegrees": 4.784297720114749,
+    "missingPercent": 0,
+    "notConstraintChecked": true
+  },
+  "limitations": [
+    "Computed on bundled coarse DEM, not measured astronaut or rover performance",
+    "Direct sketch sampled-segment slope and A* local-gradient maxima use different sampling definitions; do not compare as equivalent",
+    "Dune avoidance makes no difference for this specific case",
+    "Endpoints snap to planning cells; destination is near Three Forks, not a sample-tube location",
+    "Time and rover energy are separate scenario models"
+  ]
+}

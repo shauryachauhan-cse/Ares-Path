@@ -1,0 +1,67 @@
+{
+  "catalogVersion": "2026-11-15",
+  "coordinateConvention": "Planetocentric latitude, east-positive longitude; local display spans 77.34375–77.6953125°E and 18.28125–18.6328125°N.",
+  "thermal": {
+    "id": "THEMIS_DayIR_ControlledMosaics_100m_v2_oct2018",
+    "title": "THEMIS daytime thermal infrared",
+    "mission": "2001 Mars Odyssey",
+    "instrument": "THEMIS IR",
+    "imageUrl": "/assets/science-thermal-map.png",
+    "bounds": [77.34375,18.28125,77.6953125,18.6328125],
+    "sourceUrl": "https://trek.nasa.gov/tiles/Mars/EQ/THEMIS_DayIR_ControlledMosaics_100m_v2_oct2018/1.0.0/WMTSCapabilities.xml",
+    "tileUrl": "https://trek.nasa.gov/tiles/Mars/EQ/THEMIS_DayIR_ControlledMosaics_100m_v2_oct2018/1.0.0/default/default028mm/9/203/732.png",
+    "documentationUrl": "https://www.mars.asu.edu/data/",
+    "coverage": "Bundled NASA Trek tile at zoom 9, row 203, column 732; full local planner extent.",
+    "resolution": "Source mosaic nominal 100 m/pixel; this display tile approximately 81 m/pixel north–south, so display pixels do not add source detail.",
+    "date": "Mosaic version: October 2018. Individual acquisition times are not supplied by this display tile.",
+    "units": "Contrast-stretched grayscale display values, not calibrated degrees Celsius or Kelvin.",
+    "legend": "Dark to light: displayed infrared brightness; no quantitative temperature scale is supplied.",
+    "limitations": "A multi-observation orbital mosaic. Surface infrared emission is different from rover air temperature. This tile cannot supply current temperature, day/night change, thermal inertia, or heat-hazard thresholds. Different source control may leave residual offsets relative to CTX imagery.",
+    "credit": "NASA/JPL-Caltech/Arizona State University; NASA Solar System Treks."
+  },
+  "mineralogy": {
+    "title": "Jezero Crater Minerals",
+    "imageUrl": "/assets/science-minerals.jpg",
+    "imageId": "PIA23380",
+    "sourceUrl": "https://science.nasa.gov/photojournal/jezero-crater-minerals/",
+    "originalImageUrl": "https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia23/pia23380/PIA23380.jpg",
+    "mission": "Mars Reconnaissance Orbiter",
+    "instrument": "CRISM spectral data and CTX optical imagery",
+    "publishedAt": "2019-11-12",
+    "observedAt": null,
+    "coverage": "Jezero Crater reference figure; not registered to the interactive planner.",
+    "legend": "Green: carbonate-bearing minerals. Red: olivine sand eroded from carbonate-containing rocks. Uncolored terrain is not proof those minerals are absent.",
+    "limitations": "Published compositional interpretation, not a map of ongoing reactions, chemical exposure, or toxicity. Source page does not provide individual acquisition timestamps or a georeferencing transform for this figure.",
+    "credit": "NASA/JPL-Caltech/MSSS/JHU-APL/Purdue/USGS"
+  },
+  "thermalMineralReference": {
+    "title": "Infrared view of olivine-rich terrain",
+    "imageUrl": "/assets/science-thermal.jpg",
+    "sourceUrl": "https://themis.mars.asu.edu/node/9386",
+    "sourceId": "THEMIS I00921002; infrared bands 8, 7 and 5",
+    "coverage": "Reference figure centered at approximately 18.44°N, 77.44°E; panels compare CTX, THEMIS and their composite.",
+    "resolution": "THEMIS 100 m/pixel; CTX 6 m/pixel in the published figure.",
+    "legend": "Purple/magenta in the infrared DCS view indicate an olivine-rich spectral signature. These are not temperature colors.",
+    "limitations": "Annotated comparison figure, not a registered planner layer. No individual acquisition date is given in the source description.",
+    "credit": "NASA/JPL-Caltech/Arizona State University"
+  },
+  "geology": {
+    "title": "Geologic map of Jezero Crater and the Nili Planum region",
+    "imageUrl": "/assets/science-geology.jpg",
+    "sourceUrl": "https://www.usgs.gov/maps/geologic-map-jezero-crater-and-nili-planum-region-mars",
+    "fullMapUrl": "https://doi.org/10.3133/sim3464",
+    "imageSourceUrl": "https://www.usgs.gov/media/images/map-sheet-sim-3464",
+    "authors": "Vivian Z. Sun and Kathryn M. Stack",
+    "publication": "USGS Scientific Investigations Map 3464, 2020; scale 1:75,000",
+    "publishedAt": "2020-12-02",
+    "coverage": "76.8–77.8°E, 17.7–18.7°N. Reference map sheet includes the legend and wider regional context.",
+    "methods": "Units interpreted from CTX texture, tone, morphology, setting and stratigraphy, supported by THEMIS nighttime IR, CTX/HRSC terrain and HiRISE imagery.",
+    "limitations": "Interpretive geological boundaries at publication scale, not engineering traversability or exact rock boundaries. The supplied map-sheet preview is not a registered raster; it is displayed separately from the planner.",
+    "units": [
+      {"name":"Jezero crater deposits", "description":"The published map distinguishes crater-interior deposits and their stratigraphic relationships, including the delta and crater-floor materials. Use the map legend for individual unit abbreviations."},
+      {"name":"Bedrock and regional units", "description":"Regional bedrock and Nili Planum units provide context for the geological history around Jezero. Composition is not uniform across a whole mapped unit."},
+      {"name":"Aeolian and impact-related units", "description":"Wind-related and crater units occur in the mapped region. Their presence does not quantify soil bearing strength or identify every small obstacle."}
+    ],
+    "credit": "Sun and Stack, USGS, 2020; prepared for NASA. Public-domain map."
+  }
+}
