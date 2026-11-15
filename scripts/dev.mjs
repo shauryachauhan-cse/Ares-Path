@@ -1,0 +1,3 @@
+import http from 'node:http';import worker from '../dist/server/index.js';
+const args=process.argv.slice(2),at=args.indexOf('--port'),port=at>=0?Number(args[at+1]):Number(process.env.PORT||4173);
+http.createServer(async(req,res)=>{try{const chunks=[];for await(const c of req)chunks.push(c);const method=req.method;const request=new Request(`http://${req.headers.host}${req.url}`,{method,headers:req.headers,...(method!=='GET'&&method!=='HEAD'?{body:Buffer.concat(chunks)}:{})});const r=await worker.fetch(request,{});res.writeHead(r.status,Object.fromEntries(r.headers));res.end(Buffer.from(await r.arrayBuffer()));}catch{res.writeHead(500);res.end('Preview error')}}).listen(port,'0.0.0.0');

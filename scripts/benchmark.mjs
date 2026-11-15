@@ -1,0 +1,11 @@
+import fs from 'node:fs';import crypto from 'node:crypto';
+import {routeAlternatives} from '../worker/routing.js';
+import {calculate} from '../worker/model.js';
+import {roverEnergy,routeTerrain} from '../public/simulation-model.js';
+import {DEMO_MISSION as m,DEMO_ROVER as rover,DEMO_TIME as time} from '../public/demo-mission.js';
+const read=p=>JSON.parse(fs.readFileSync(p)),terrain=read('public/terrain.json'),hazards=read('public/hazard-grid.json');
+const routes=routeAlternatives(terrain,{...m},hazards),noAvoid=routeAlternatives(terrain,{...m,avoidMappedHazards:false},hazards);
+const summarize=r=>{const estimate=calculate({name:m.name,scienceGoal:'sediments',waypoints:r.waypoints,...time});const energy=roverEnergy({...rover,distanceKm:r.oneWayKm,ascentM:r.ascentMeters,descentM:r.descentMeters});return{id:r.id,roundTripKm:r.oneWayKm*2,maxModeledSlopeDegrees:r.maxModeledSlopeDegrees,ascentMeters:r.ascentMeters,allocatedMinutes:estimate.allocatedMinutes,energyWh:energy.demandWh,timeFit:estimate.withinBudget,batteryFit:energy.fits,endpointSnapMeters:r.endpointSnapMeters}};
+const direct=routeTerrain(terrain,[m.start,m.end]);
+const result={caseId:m.id,mission:m,time,rover,recommendedId:routes.recommendedId,sourceHashes:Object.fromEntries(['terrain.json','hazard-grid.json'].map(p=>[p,crypto.createHash('sha256').update(fs.readFileSync('public/'+p)).digest('hex')])),routes:routes.routes.map(summarize),bedformPolicyChangedPaths:routes.routes.some(r=>JSON.stringify(r.waypoints)!==JSON.stringify(noAvoid.routes.find(x=>x.id===r.id).waypoints)),directSketch:{roundTripKm:direct.distanceM/500,maxSampledSegmentSlopeDegrees:direct.maxSlope,missingPercent:direct.missingPercent,notConstraintChecked:true},limitations:['Computed on bundled coarse DEM, not measured astronaut or rover performance','Direct sketch sampled-segment slope and A* local-gradient maxima use different sampling definitions; do not compare as equivalent','Dune avoidance makes no difference for this specific case','Endpoints snap to planning cells; destination is near Three Forks, not a sample-tube location','Time and rover energy are separate scenario models']};
+fs.writeFileSync('public/benchmark.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result.routes,null,2));

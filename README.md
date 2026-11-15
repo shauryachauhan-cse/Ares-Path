@@ -1,2 +1,23 @@
-# Ares-Path
-Ares Path is an interactive Marswalk planning platform that combines NASA Mars imagery, terrain elevation, and environmental data to explore science destinations, compare routes, and simulate exploration missions in Jezero Crater.
+# Ares Path hosted site
+
+Cinematic homepage, interactive Jezero map, server-side Marswalk estimates, and per-visitor saved missions. The hosted runtime is a Cloudflare Worker; this adapts the earlier local Node/SQLite prototype to Sites hosting.
+
+Source: `public/` for frontend, `worker/model.js` for validation/calculations, `worker/index.js` for API/storage. Run `npm run build`, then `npm test`. Build embeds frontend assets into the Worker; no runtime dependencies. Existing homepage design and audience are preserved.
+
+Endpoints: POST `/api/estimate`, POST `/api/missions`, GET `/api/missions`, GET `/api/health`. Mission schema: name, waypoints as [longitude,latitude], speedKmh, scienceMinutes, reserveMinutes, budgetMinutes. Saving/listing requires platform-provided visitor identity. R2 binding BUCKET stores JSON records partitioned by authenticated visitor ID. A save creates a new snapshot. List returns at most 100 records; frontend can reopen and save another snapshot. No sharing of saved missions between visitors.
+
+The map uses the MRO CTX beta01 uncontrolled mosaic from NASA/JPL/MSSS/Caltech Murray Lab via Esri's public OnMars tile endpoint. The mosaic's registration may be imperfect. A validated 1024×1024 CTX extract is bundled with the site, covering 77.34375–77.6953125° E and 18.28125–18.6328125° N. Map panning is constrained to this coverage; no browser requests to Esri are required. The extract is approximately 20 m per pixel; enlargement does not create new detail. Source capabilities: https://trek.nasa.gov/tiles/Mars/EQ/CTX_beta01_uncontrolled_5m_Caltech/1.0.0/WMTSCapabilities.xml . Optical imagery and numerical terrain routing are integrated. Rover observation overlays and terrain segmentation remain future work.
+
+Coordinates and waypoint routes are hypothetical. Great-circle distance uses mean Mars radius 3389.5 km, a constant user speed and retraced return. No traversability, oxygen, spacesuit or weather model. A time allocation does not certify safety. Hero artwork is AI-generated. Dataset resource eligibility and event AI policy require organizer verification.
+
+## Terrain route comparison
+
+POST `/api/routes` with `start`, `end` (longitude, latitude), `maxSlopeDegrees` (5–30, default 15) and optional `exclusions: [{center:[lon,lat],radiusMeters:150}]`. Returns distance-priority, balanced and terrain-priority A* candidates, per-route ascent/descent, maximum modeled slope, and profiles. Grid nodes with missing data, slope above the limit, or user exclusions are blocked; diagonal corner-cutting is prohibited. Edge costs are distance × [1 + weight × (slope/10°)²], with weights 0/4/12. Recommendation minimizes weight-4 score among the candidates. Identical alternatives are disclosed. Budget feasibility is evaluated separately.
+
+Elevation source: USGS CTX ARD stereo pair P18_007925_1987_XN_18N282W__P19_008650_1987_XI_18N282W, controlled to MOLA. Native post spacing ~20.16 m, area-averaged to 256×256 (~81 m north/south) over the bundled map bounds. `public/terrain.json` preserves source URL, grid bounds and missing values. No external elevation requests at runtime. The image mosaic is uncontrolled and may not align perfectly with the controlled DEM. Endpoint snapping is disclosed. Small craters, obstacles, and DEM errors remain unresolved. The slope limit is a scenario setting, not an astronaut mobility specification. User-marked exclusion circles are annotations, not automatic crater detections.
+
+## Environmental context and crew mobility
+
+Three data types are combined: optical CTX imagery, a numerical CTX elevation model, and historical Perseverance MEDA atmospheric observations summarized by NASA/JPL. `public/environment.json` preserves the source URLs, location and observation periods. Pressure (718 Pa, Feb 19 2021) and temperature extrema (-83 to -22°C, April 3–4 2021) are from separate historical periods, not a joint current weather record. Curiosity RAD's 0.67 mSv/day historical average (Gale, Aug 2012–June 2013) is separate contextual information and is never applied to Jezero routes or suit dose. No current space-weather alert service is connected.
+
+Mobility factor (1–3), extra equipment mass (0–40 kg) and planned rest (0–120 min) are explicit scenario inputs persisted with mission plans. Moving time = distance / base speed × mobility factor; allocation adds rest, science and reserve. Equipment mass is descriptive, with no invented mass-to-effort conversion. Review checkboxes are reminders, not operational clearance. Science objectives are hypothetical observation tasks and do not verify target suitability.

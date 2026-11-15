@@ -1,0 +1,10 @@
+import {readFileSync,writeFileSync,mkdirSync,readdirSync} from 'node:fs';
+const assets={};function walk(dir,prefix=''){for(const e of readdirSync(dir,{withFileTypes:true})){const p=prefix+'/'+e.name;if(e.isDirectory())walk(dir+'/'+e.name,p);else if(e.name!=='mars-hero.png')assets[p]=readFileSync(dir+'/'+e.name).toString('base64')}}walk('public');
+const hazards=readFileSync('public/hazard-grid.json','utf8');
+const terrain=readFileSync('public/terrain.json','utf8');
+const routing=readFileSync('worker/routing.js','utf8').replaceAll('export ','');
+const simulation=readFileSync('public/simulation-model.js','utf8').replaceAll('export ','');
+const model=readFileSync('worker/model.js','utf8').replaceAll('export ','');
+const intel=readFileSync('worker/intelligence.js','utf8').replaceAll('export ','');
+const server=readFileSync('worker/index.js','utf8').replace("import {calculate,validate,InputError} from './model.js';",'').replace("import {roverEnergy} from '../public/simulation-model.js';",'');
+mkdirSync('dist/server',{recursive:true});writeFileSync('dist/server/index.js','const ASSETS='+JSON.stringify(assets)+';\n'+model+'\n'+simulation+'\nconst TERRAIN='+terrain+';\nconst HAZARDS='+hazards+';\n'+routing+'\n'+intel+'\n'+server);

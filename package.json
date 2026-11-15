@@ -1,0 +1,10 @@
+{
+  "name": "ares-path-hosted",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test test/*.test.js",
+    "dev": "node scripts/dev.mjs"
+  }
+}
