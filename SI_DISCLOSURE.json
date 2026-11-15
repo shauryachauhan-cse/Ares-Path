@@ -1,0 +1,18 @@
+{
+  "project": "Ares Path",
+  "si_tools": [
+    "OpenAI ChatGPT/Codex",
+    "OpenAI image generation"
+  ],
+  "uses": {
+    "code": "AI-assisted implementation, debugging and testing",
+    "text": "AI-assisted interface copy, documentation and presentation",
+    "images": "AI-generated homepage and presentation cover artwork",
+    "derived_results": "Route, time and energy outputs calculated by AI-assisted deterministic code"
+  },
+  "scientific_data": {
+    "sources": ["NASA", "USGS"],
+    "statement": "Original scientific observations are sourced data, not SI-generated data. Processing and model assumptions are documented separately."
+  },
+  "limitations": "Educational prototype, not operational astronaut safety guidance."
+}
